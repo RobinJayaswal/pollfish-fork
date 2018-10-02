@@ -15,7 +15,14 @@ export default class Pollfish {
     surveyClosed: new Map()
   };
 
-  static initialize(key, releaseMode, customMode, format, userId) {
+  static initialize(
+    key,
+    releaseMode,
+    customMode,
+    format,
+    userId,
+    andUserAttributes
+  ) {
     __DEV__ &&
       console.debug(
         TAG,
@@ -31,7 +38,8 @@ export default class Pollfish {
       releaseMode,
       customMode,
       format || "RANDOM",
-      userId
+      userId,
+      andUserAttributes
     );
   }
 

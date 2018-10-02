@@ -33,7 +33,7 @@ RCT_EXPORT_MODULE()
 #pragma mark exported methods
 
 // Initialize Pollfish
-RCT_EXPORT_METHOD(initialize :(NSString *)apiKey :(BOOL *)debugMode  :(BOOL *)customMode :(NSString *)format :(NSString *)userId)
+RCT_EXPORT_METHOD(initialize :(NSString *)apiKey :(BOOL *)debugMode  :(BOOL *)customMode :(NSString *)format :(NSString *)userId :(NSMutableDictionary *)andUserAttributes)
 {
     if (!isInitialized) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(surveyNotAvailable) name:@"PollfishSurveyNotAvailable" object:nil];
@@ -53,9 +53,9 @@ RCT_EXPORT_METHOD(initialize :(NSString *)apiKey :(BOOL *)debugMode  :(BOOL *)cu
                andDebuggable: debugMode
                andCustomMode: customMode
               andRequestUUID: userId
-           andUserAttributes: nil
+           andUserAttributes: andUserAttributes
              andSurveyFormat: [self parseFormat:format]];
-    
+
 }
 
 RCT_EXPORT_METHOD(show)
@@ -97,10 +97,10 @@ RCT_EXPORT_METHOD(surveyAvailable)
   } else if ([name isEqualToString:@"RANDOM"]) {
     return SurveyFormatRandom;
   }else{
-    
+
     return SurveyFormatRandom;
   }
- 
+
 }
 
 #pragma mark delgate events
