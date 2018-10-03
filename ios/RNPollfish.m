@@ -80,7 +80,7 @@ RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
 {
     NSLog(@"isPollfishPresent");
     NSLog([Pollfish isPollfishPresent]?@"YES":@"NO");
-    BOOL isAvailable = [Pollfish isPollfishPresent]
+    BOOL isAvailable = [Pollfish isPollfishPresent];
     callback(@[[NSNull null], @(isAvailable)]);
 }
 
