@@ -58,9 +58,9 @@ export default class Pollfish {
     return RNPollfish.destroy();
   }
 
-  static surveyAvailable() {
+  static surveyAvailable(callback) {
     __DEV__ && console.debug(TAG, "surveyAvailable");
-    return RNPollfish.surveyAvailable();
+    return RNPollfish.surveyAvailable(callback);
   }
 
   static addEventListener(type, handler) {
