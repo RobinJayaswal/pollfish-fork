@@ -76,11 +76,11 @@ RCT_EXPORT_METHOD(destroy)
     //[Pollfish destroy];
 }
 
-RCT_EXPORT_METHOD(surveyAvailable)
+RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
 {
     NSLog(@"isPollfishPresent");
     NSLog([Pollfish isPollfishPresent]?@"YES":@"NO");
-    return [Pollfish isPollfishPresent];
+    callback(@[[NSNull null], [Pollfish isPollfishPresent]]);
 }
 
 #pragma mark utils
