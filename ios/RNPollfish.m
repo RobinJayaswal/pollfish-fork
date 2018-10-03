@@ -80,7 +80,7 @@ RCT_EXPORT_METHOD(surveyAvailable)
 {
     NSLog(@"isPollfishPresent");
     NSLog([Pollfish isPollfishPresent]?@"YES":@"NO");
-    [Pollfish isPollfishPresent];
+    return [Pollfish isPollfishPresent];
 }
 
 #pragma mark utils
