@@ -35,16 +35,18 @@ RCT_EXPORT_MODULE()
 // Initialize Pollfish
 RCT_EXPORT_METHOD(initialize :(NSString *)apiKey :(BOOL *)debugMode  :(BOOL *)customMode :(NSString *)format :(NSString *)userId :(NSDictionary *)andUserAttributes)
 {
-    NSLog(@"isInitialized: %@", isInitialized?@"YES":@"NO");
-    if (!isInitialized) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(surveyNotAvailable) name:@"PollfishSurveyNotAvailable" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishOpened) name:@"PollfishOpened" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishClosed) name:@"PollfishClosed" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishUsernotEligible) name:@"PollfishUserNotEligible" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishCompleted:) name:@"PollfishSurveyCompleted" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishReceived:) name:@"PollfishSurveyReceived" object:nil];
-        isInitialized = YES;
-    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishSurveyNotAvailable" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(surveyNotAvailable) name:@"PollfishSurveyNotAvailable" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishOpened" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishOpened) name:@"PollfishOpened" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishClosed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishClosed) name:@"PollfishClosed" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishUserNotEligible" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishUsernotEligible) name:@"PollfishUserNotEligible" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishSurveyCompleted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishCompleted:) name:@"PollfishSurveyCompleted" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PollfishSurveyReceived" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pollfishReceived:) name:@"PollfishSurveyReceived" object:nil];
 
     NSLog(@"initialize Pollfish");
 
@@ -74,7 +76,7 @@ RCT_EXPORT_METHOD(hide)
 RCT_EXPORT_METHOD(destroy)
 {
     NSLog(@"destroy Pollfish");
-    //[Pollfish destroy];
+    [Pollfish destroy];
 }
 
 RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
