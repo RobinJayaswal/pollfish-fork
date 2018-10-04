@@ -84,7 +84,7 @@ export default class Pollfish {
   }
 
   static removeAllListeners() {
-    let names = Object.keys(eventHandlers);
+    let names = Object.keys(this.eventHandlers);
     for (const name of names) {
       this.emitter && this.emitter.removeAllListeners(name);
     }
