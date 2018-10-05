@@ -107,20 +107,51 @@ RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
 
 }
 
-- ()parseDemographics:(NSDictionary *)dems
+- (UserAttributesDictionary *)parseDemographics:(NSDictionary *)dems
 {
   UserAttributesDictionary *userAttributesDictionary = [[UserAttributesDictionary alloc] init];
-  [userAttributesDictionary setGender: GENDER(MALE)];
-  [userAttributesDictionary setRace:RACE(WHITE)];
-  [userAttributesDictionary setYearOfBirth:YEAR_OF_BIRTH(_1984)];
-  [userAttributesDictionary setMaritalStatus:MARITAL_STATUS(MARRIED)];
-  [userAttributesDictionary setParentalStatus:PARENTAL_STATUS(THREE)];
+  NSString *gender = dems[@"gender"];
+  NSString *race = dems[@"race"];
+
+  NSLog("%@", race);
+
+  [userAttributesDictionary setGender: [self getGender:gender]];
+  [userAttributesDictionary setRace: [self getRace:race]];
   [userAttributesDictionary setEducation:EDUCATION_LEVEL(UNIVERSITY)];
-  [userAttributesDictionary setEmployment:EMPLOYMENT_STATUS(EMPLOYED_FOR_WAGES)];
-  [userAttributesDictionary setCareer:CAREER(TELECOMMUNICATIONS)];
-  [userAttributesDictionary setIncome:INCOME(MIDDLE_I)];
+  [userAttributesDictionary setEmployment:EMPLOYMENT_STATUS(STUDENT)];
+  [userAttributesDictionary setCareer:CAREER(STUDENT_)];
 
   return userAttributesDictionary;
+}
+
+- (NSString*)getGender:(NSString *)gender
+{
+  if ([gender isEqualToString:@"man"]) {
+    return GENDER(MALE);
+  } else if ([gender isEqualToString:@"woman"]) {
+    return GENDER(FEMALE);
+  } else {
+    return GENDER(OTHER);
+  }
+}
+
+- (NSString*)getRace:(NSString *)gender
+{
+  if ([gender isEqualToString:@"white"]) {
+    return RACE(WHITE);
+  } else if ([gender isEqualToString:@"asian"]) {
+    return RACE(ASIAN);
+  } else if ([gender isEqualToString:@"black or african-american"]){
+    return RACE(BLACK);
+  } else if ([gender isEqualToString:@"hispanic/latino"]) {
+    return RACE(HISPANIC);
+  } else if ([gender isEqualToString:@"two or more races"]) {
+    return RACE(MULTIRACIAL);
+  } else if ([gender isEqualToString:@"two or more races"]) {
+    return RACE(MULTIRACIAL);
+  } else {
+    return RACE(OTHER_RACE);
+  }
 }
 
 #pragma mark delgate events
