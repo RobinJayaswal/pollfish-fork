@@ -56,7 +56,7 @@ RCT_EXPORT_METHOD(initialize :(NSString *)apiKey :(BOOL *)debugMode  :(BOOL *)cu
                andDebuggable: debugMode
                andCustomMode: customMode
               andRequestUUID: userId
-           andUserAttributes: andUserAttributes
+           andUserAttributes: [self parseDemographics:andUserAttributes]
              andSurveyFormat: [self parseFormat:format]];
 
 }
@@ -105,6 +105,22 @@ RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
     return SurveyFormatRandom;
   }
 
+}
+
+- ()parseDemographics:(NSDictionary *)dems
+{
+  UserAttributesDictionary *userAttributesDictionary = [[UserAttributesDictionary alloc] init];
+  [userAttributesDictionary setGender: GENDER(MALE)];
+  [userAttributesDictionary setRace:RACE(WHITE)];
+  [userAttributesDictionary setYearOfBirth:YEAR_OF_BIRTH(_1984)];
+  [userAttributesDictionary setMaritalStatus:MARITAL_STATUS(MARRIED)];
+  [userAttributesDictionary setParentalStatus:PARENTAL_STATUS(THREE)];
+  [userAttributesDictionary setEducation:EDUCATION_LEVEL(UNIVERSITY)];
+  [userAttributesDictionary setEmployment:EMPLOYMENT_STATUS(EMPLOYED_FOR_WAGES)];
+  [userAttributesDictionary setCareer:CAREER(TELECOMMUNICATIONS)];
+  [userAttributesDictionary setIncome:INCOME(MIDDLE_I)];
+
+  return userAttributesDictionary
 }
 
 #pragma mark delgate events
