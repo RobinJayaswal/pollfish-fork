@@ -120,7 +120,7 @@ RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
   [userAttributesDictionary setCareer:CAREER(TELECOMMUNICATIONS)];
   [userAttributesDictionary setIncome:INCOME(MIDDLE_I)];
 
-  return userAttributesDictionary
+  return userAttributesDictionary;
 }
 
 #pragma mark delgate events
