@@ -113,7 +113,7 @@ RCT_EXPORT_METHOD(surveyAvailable:(RCTResponseSenderBlock)callback)
   NSString *gender = dems[@"gender"];
   NSString *race = dems[@"race"];
 
-  NSLog("%@", race);
+  NSLog(@"%@", race);
 
   [userAttributesDictionary setGender: [self getGender:gender]];
   [userAttributesDictionary setRace: [self getRace:race]];
